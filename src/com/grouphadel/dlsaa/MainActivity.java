@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.grouphadel.dlsaa.app.NearbyListFragment;
+import com.grouphadel.dlsaa.app.PromotionsFragment;
 
 public class MainActivity extends FragmentActivity {
 
@@ -70,10 +71,14 @@ public class MainActivity extends FragmentActivity {
 			// getItem is called to instantiate the fragment for the given page.
 			Fragment fragment;
 
-			if (position == 0) {
+			switch (position) {
+			case 0:
 				fragment = new NearbyListFragment();
-			} else {
-
+				break;
+			case 1:
+				fragment = new PromotionsFragment();
+				break;
+			default:
 				// Return a DummySectionFragment (defined as a static inner
 				// class
 				// below) with the page number as its lone argument.
@@ -82,8 +87,9 @@ public class MainActivity extends FragmentActivity {
 				args.putInt(DummySectionFragment.ARG_SECTION_NUMBER,
 						position + 1);
 				fragment.setArguments(args);
+				break;
 			}
-			
+
 			return fragment;
 		}
 
