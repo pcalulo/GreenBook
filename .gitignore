@@ -1,0 +1,26 @@
+# Vim stuff
+*.swp
+*.swo
+
+# Backup files
+*~
+
+# For the generated .apk packages and compile stuff
+bin/*
+gen/*
+build
+# *.apk
+# *.dex
+# *.ap_
+# *.class
+
+# For the project stuff that Eclipse autogenerates
+.settings/
+project.properties
+.classpath
+.project
+
+# Ignore Android Studio stuff
+.idea
+.gradle
+local.properties
