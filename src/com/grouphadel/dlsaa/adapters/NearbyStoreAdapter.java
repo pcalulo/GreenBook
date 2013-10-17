@@ -4,13 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.grouphadel.dlsaa.R;
+import com.grouphadel.dlsaa.dialogs.StoreCategoryFilterDialog;
 
 import models.Store;
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.database.DataSetObserver;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
@@ -20,18 +27,18 @@ public class NearbyStoreAdapter implements ListAdapter {
 	private static final int VIEW_TYPE_FILTER = 1;
 	private static final int VIEW_TYPE_STORE = 2;
 
-	private Context mContext;
+	private FragmentActivity mActivity;
 	private List<DataSetObserver> mObservers;
 	private List<Store> mStores;
 
-	public NearbyStoreAdapter(Context context) {
+	public NearbyStoreAdapter(FragmentActivity activity) {
 		mObservers = new ArrayList<DataSetObserver>();
 
 		mStores = new ArrayList<Store>();
 		mStores.add(new Store());
 		mStores.add(new Store());
 		
-		mContext = context;
+		mActivity = activity;
 	}
 
 	@Override
@@ -71,7 +78,7 @@ public class NearbyStoreAdapter implements ListAdapter {
 		View view = null;
 		int viewType; // let getItemViewType figure out the view to create
 
-		LayoutInflater inflater = (LayoutInflater) mContext
+		LayoutInflater inflater = (LayoutInflater) mActivity
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
 		viewType = getItemViewType(position);
@@ -87,6 +94,27 @@ public class NearbyStoreAdapter implements ListAdapter {
 
 		return view;
 	}
+	
+	private void configureFilterCard(View view, int position) {
+		ImageButton filterButton = (ImageButton) view.findViewById(R.id.filter_button);
+		
+		filterButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				DialogFragment dialog = new StoreCategoryFilterDialog();
+				dialog.show(mActivity.getSupportFragmentManager(), "categories");
+			}
+		});
+	}
+	
+	private void configureStoreCard(View view, int position) {
+		Store store = (Store) getItem(position);
+		TextView storeNameText = (TextView) view.findViewById(R.id.store_name);
+		TextView discountText = (TextView) view.findViewById(R.id.discount_text);
+		storeNameText.setText(store.getName());
+		discountText.setText(store.getDiscountInfo());
+	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
@@ -101,11 +129,9 @@ public class NearbyStoreAdapter implements ListAdapter {
 		
 		// Set view contents appropriately
 		if (getItemViewType(position) == VIEW_TYPE_STORE) {
-			Store store = (Store) getItem(position);
-			TextView storeNameText = (TextView) view.findViewById(R.id.store_name);
-			TextView discountText = (TextView) view.findViewById(R.id.discount_text);
-			storeNameText.setText(store.getName());
-			discountText.setText(store.getDiscountInfo());
+			configureStoreCard(view, position);
+		} else {
+			configureFilterCard(view, position);
 		}
 		
 		return view;

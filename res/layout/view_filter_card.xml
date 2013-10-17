@@ -16,9 +16,11 @@
         android:text="All Stores" />
 
     <ImageButton
+        android:id="@+id/filter_button"
         style="@style/TransparentButtonStyle"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_weight="0"
         android:src="@drawable/action_search" />
+
 </LinearLayout>
