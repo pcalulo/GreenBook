@@ -6,7 +6,7 @@ public class Store {
 	
 	public Store() {
 		setName("Example Store");
-		setDiscountInfo("0% off on everything");
+		setDiscountInfo("0% off on all cash purchases, -0% off on card purchases");
 	}
 
 	public String getName() {

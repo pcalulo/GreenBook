@@ -103,7 +103,9 @@ public class NearbyStoreAdapter implements ListAdapter {
 		if (getItemViewType(position) == VIEW_TYPE_STORE) {
 			Store store = (Store) getItem(position);
 			TextView storeNameText = (TextView) view.findViewById(R.id.store_name);
+			TextView discountText = (TextView) view.findViewById(R.id.discount_text);
 			storeNameText.setText(store.getName());
+			discountText.setText(store.getDiscountInfo());
 		}
 		
 		return view;
