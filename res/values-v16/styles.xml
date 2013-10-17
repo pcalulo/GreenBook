@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="HeadingStyle" parent="HeadingStyleBase">
+        <!-- fontFamily is 4.1 (API 16) and up -->
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
+</resources>
