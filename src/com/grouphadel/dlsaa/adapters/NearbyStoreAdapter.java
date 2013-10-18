@@ -24,8 +24,8 @@ import android.widget.TextView;
 public class NearbyStoreAdapter implements ListAdapter {
 
 	private static final int NUM_VIEW_TYPES = 2;
-	private static final int VIEW_TYPE_FILTER = 1;
-	private static final int VIEW_TYPE_STORE = 2;
+	private static final int VIEW_TYPE_FILTER = 0;
+	private static final int VIEW_TYPE_STORE = 1;
 
 	private FragmentActivity mActivity;
 	private List<DataSetObserver> mObservers;
@@ -48,6 +48,9 @@ public class NearbyStoreAdapter implements ListAdapter {
 
 	@Override
 	public Object getItem(int index) {
+		if (index - 1 >= mStores.size())
+			throw new ArrayIndexOutOfBoundsException("HOY! Bad index " + index);
+		
 		// Adjust for the filter item, to get the correct Store object
 		return mStores.get(index - 1);
 	}
