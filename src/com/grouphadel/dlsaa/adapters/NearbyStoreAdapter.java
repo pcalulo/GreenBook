@@ -5,8 +5,8 @@ import java.util.List;
 
 import com.grouphadel.dlsaa.R;
 import com.grouphadel.dlsaa.dialogs.StoreCategoryFilterDialog;
+import com.grouphadel.dlsaa.models.Store;
 
-import models.Store;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;

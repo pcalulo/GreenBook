@@ -1,4 +1,4 @@
-package models;
+package com.grouphadel.dlsaa.models;
 
 public class Store {
 	private String name;
