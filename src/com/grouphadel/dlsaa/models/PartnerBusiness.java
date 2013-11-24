@@ -1,11 +1,11 @@
 package com.grouphadel.dlsaa.models;
 
-public class Store {
+public class PartnerBusiness {
 	private String name;
 	private String discountInfo;
 	
-	public Store() {
-		setName("Example Store");
+	public PartnerBusiness() {
+		setName("Example PartnerBusiness");
 		setDiscountInfo("0% off on all cash purchases, -0% off on card purchases");
 	}
 

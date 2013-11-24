@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.grouphadel.dlsaa.R;
 import com.grouphadel.dlsaa.dialogs.StoreCategoryFilterDialog;
-import com.grouphadel.dlsaa.models.Store;
+import com.grouphadel.dlsaa.models.PartnerBusiness;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -29,14 +29,14 @@ public class NearbyStoreAdapter implements ListAdapter {
 
 	private FragmentActivity mActivity;
 	private List<DataSetObserver> mObservers;
-	private List<Store> mStores;
+	private List<PartnerBusiness> mStores;
 
 	public NearbyStoreAdapter(FragmentActivity activity) {
 		mObservers = new ArrayList<DataSetObserver>();
 
-		mStores = new ArrayList<Store>();
-		mStores.add(new Store());
-		mStores.add(new Store());
+		mStores = new ArrayList<PartnerBusiness>();
+		mStores.add(new PartnerBusiness());
+		mStores.add(new PartnerBusiness());
 		
 		mActivity = activity;
 	}
@@ -51,7 +51,7 @@ public class NearbyStoreAdapter implements ListAdapter {
 		if (index - 1 >= mStores.size())
 			throw new ArrayIndexOutOfBoundsException("HOY! Bad index " + index);
 		
-		// Adjust for the filter item, to get the correct Store object
+		// Adjust for the filter item, to get the correct PartnerBusiness object
 		return mStores.get(index - 1);
 	}
 
@@ -112,7 +112,7 @@ public class NearbyStoreAdapter implements ListAdapter {
 	}
 	
 	private void configureStoreCard(View view, int position) {
-		Store store = (Store) getItem(position);
+		PartnerBusiness store = (PartnerBusiness) getItem(position);
 		TextView storeNameText = (TextView) view.findViewById(R.id.store_name);
 		TextView discountText = (TextView) view.findViewById(R.id.discount_text);
 		storeNameText.setText(store.getName());
