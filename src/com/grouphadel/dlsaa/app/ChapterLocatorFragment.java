@@ -8,11 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class PromotionsFragment extends Fragment {
+public class ChapterLocatorFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_promotions_list, null);
+		return inflater.inflate(R.layout.fragment_chapter_locator_list, null);
 	}
 
 	@Override

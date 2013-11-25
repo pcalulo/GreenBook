@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:background="@drawable/bg_card"
+    android:orientation="vertical"
+    android:paddingTop="16dp" >
+
+    <TextView
+        android:id="@+id/chapter_name_text"
+        style="@style/HeadingStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:paddingBottom="8dp"
+        android:text="DLSAA CCS Chapter" />
+
+    <TextView
+        android:id="@+id/chapter_address_text"
+        style="@style/StandardTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:paddingBottom="8dp"
+        android:text="2401 Taft Avenue, Malate, Manila" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="#eee" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="8dp" >
+
+        <Button
+            android:id="@+id/chapter_navigate_button"
+            style="@style/TransparentButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableLeft="@drawable/ic_action_place"
+            android:padding="8dp"
+            android:text="Navigate" />
+
+        <Button
+            android:id="@+id/chapter_call_button"
+            style="@style/TransparentButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableLeft="@drawable/ic_action_call"
+            android:padding="8dp"
+            android:text="Call" />
+    </LinearLayout>
+
+</LinearLayout>

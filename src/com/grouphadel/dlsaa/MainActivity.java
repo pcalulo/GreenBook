@@ -23,7 +23,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.grouphadel.dlsaa.app.NearbyListFragment;
-import com.grouphadel.dlsaa.app.PromotionsFragment;
+import com.grouphadel.dlsaa.app.ChapterLocatorFragment;
 
 public class MainActivity extends FragmentActivity {
 	private String[] mSectionTitles;
@@ -104,7 +104,7 @@ public class MainActivity extends FragmentActivity {
 			fragment = new NearbyListFragment();
 			break;
 		case 1:
-			fragment = new PromotionsFragment();
+			fragment = new ChapterLocatorFragment();
 			break;
 		default:
 			fragment = new Fragment();
