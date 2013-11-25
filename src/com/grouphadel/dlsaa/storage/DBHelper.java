@@ -35,11 +35,27 @@ public class DBHelper extends SQLiteOpenHelper {
 		db.execSQL("CREATE TABLE PartnerBusinesses (name TEXT, discount_description TEXT)");
 		db.execSQL("CREATE TABLE PartnerBranches (businessID INTEGER, address TEXT, latitude REAL, "
 				+ "longitude REAL)");
+		
+		// For testing/demo!
+		addSampleData(db);
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		// TODO Auto-generated method stub
+	}
+	
+	public PartnerBusinessDAO createBusinessDAO() {
+		return new PartnerBusinessDAO(this.getWritableDatabase());
+	}
+	
+	public PartnerBusinessDAO createBusinessDAO(SQLiteDatabase database) {
+		return new PartnerBusinessDAO(database);
+	}
+	
+	private void addSampleData(SQLiteDatabase db) {
+		PartnerBusinessDAO dao = createBusinessDAO(db);
+		dao.addSampleBusinessData();
 	}
 
 	public static DBHelper getInstance(Context context) {

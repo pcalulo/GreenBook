@@ -32,30 +32,31 @@ public class NearbyStoreAdapter implements ListAdapter {
 
 	private FragmentActivity mActivity;
 	private List<DataSetObserver> mObservers;
-	private List<PartnerBusiness> mStores;
+	private List<PartnerBusiness> mBusinesses;
 
 	public NearbyStoreAdapter(FragmentActivity activity) {
 		mObservers = new ArrayList<DataSetObserver>();
-
-		mStores = new ArrayList<PartnerBusiness>();
-		mStores.add(new PartnerBusiness());
-		mStores.add(new PartnerBusiness());
-
+		mBusinesses = new ArrayList<PartnerBusiness>();
 		mActivity = activity;
+	}
+
+	public void setData(List<PartnerBusiness> businesses) {
+		mBusinesses = businesses;
+		notifyDataSetChanged();
 	}
 
 	@Override
 	public int getCount() {
-		return mStores.size() + 1;
+		return mBusinesses.size() + 1;
 	}
 
 	@Override
 	public Object getItem(int index) {
-		if (index - 1 >= mStores.size())
+		if (index - 1 >= mBusinesses.size())
 			throw new ArrayIndexOutOfBoundsException("HOY! Bad index " + index);
 
 		// Adjust for the filter item, to get the correct PartnerBusiness object
-		return mStores.get(index - 1);
+		return mBusinesses.get(index - 1);
 	}
 
 	@Override
@@ -138,7 +139,7 @@ public class NearbyStoreAdapter implements ListAdapter {
 				String encodedQuery = Uri.encode(query);
 				String uriString = uriBegin + "?q=" + encodedQuery;
 				Uri uri = Uri.parse(uriString);
-				
+
 				Intent intent = new Intent(Intent.ACTION_VIEW, uri);
 				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				mActivity.startActivity(intent);
@@ -192,6 +193,12 @@ public class NearbyStoreAdapter implements ListAdapter {
 	@Override
 	public void unregisterDataSetObserver(DataSetObserver observer) {
 		this.mObservers.remove(observer);
+	}
+
+	public void notifyDataSetChanged() {
+		for (DataSetObserver observer : mObservers) {
+			observer.onChanged();
+		}
 	}
 
 	@Override
