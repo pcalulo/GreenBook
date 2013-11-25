@@ -3,7 +3,10 @@ package com.grouphadel.dlsaa.models;
 public class PartnerBusiness extends DatabaseObject {
 	private String name;
 	private String discountInfo;
-	
+
+	// This is a bit hackish
+	private PartnerBranch nearestBranch;
+
 	public PartnerBusiness() {
 		setName("Example PartnerBusiness");
 		setDiscountInfo("0% off on all cash purchases, -0% off on card purchases");
@@ -23,5 +26,13 @@ public class PartnerBusiness extends DatabaseObject {
 
 	public void setDiscountInfo(String discountInfo) {
 		this.discountInfo = discountInfo;
+	}
+
+	public PartnerBranch getNearestBranch() {
+		return nearestBranch;
+	}
+
+	public void setNearestBranch(PartnerBranch nearestBranch) {
+		this.nearestBranch = nearestBranch;
 	}
 }
