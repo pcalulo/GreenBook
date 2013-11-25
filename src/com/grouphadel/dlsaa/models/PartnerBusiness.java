@@ -1,6 +1,6 @@
 package com.grouphadel.dlsaa.models;
 
-public class PartnerBusiness {
+public class PartnerBusiness extends DatabaseObject {
 	private String name;
 	private String discountInfo;
 	
