@@ -12,4 +12,7 @@
         <item>DLSAA Petron Card</item>
         <item>News Board</item>
     </string-array>
+    
+    <string name="drawer_open">Open navigation</string>
+    <string name="drawer_close">Close navigation</string>
 </resources>
