@@ -45,6 +45,7 @@
         android:background="#eee" />
 
     <Button
+        android:id="@+id/store_navigate_button"
         style="@style/TransparentButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

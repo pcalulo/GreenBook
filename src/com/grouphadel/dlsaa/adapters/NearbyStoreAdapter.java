@@ -11,12 +11,15 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.DataSetObserver;
+import android.net.Uri;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.TextView;
@@ -37,7 +40,7 @@ public class NearbyStoreAdapter implements ListAdapter {
 		mStores = new ArrayList<PartnerBusiness>();
 		mStores.add(new PartnerBusiness());
 		mStores.add(new PartnerBusiness());
-		
+
 		mActivity = activity;
 	}
 
@@ -50,7 +53,7 @@ public class NearbyStoreAdapter implements ListAdapter {
 	public Object getItem(int index) {
 		if (index - 1 >= mStores.size())
 			throw new ArrayIndexOutOfBoundsException("HOY! Bad index " + index);
-		
+
 		// Adjust for the filter item, to get the correct PartnerBusiness object
 		return mStores.get(index - 1);
 	}
@@ -74,7 +77,8 @@ public class NearbyStoreAdapter implements ListAdapter {
 	/**
 	 * A helper function for inflating the correct view for a given position.
 	 * 
-	 * @param position The position to inflate a view for
+	 * @param position
+	 *            The position to inflate a view for
 	 * @return A view appropriate for the specified position in the list
 	 */
 	private View inflateViewForPosition(int position) {
@@ -97,12 +101,13 @@ public class NearbyStoreAdapter implements ListAdapter {
 
 		return view;
 	}
-	
+
 	private void configureFilterCard(View view, int position) {
-		ImageButton filterButton = (ImageButton) view.findViewById(R.id.filter_button);
-		
+		ImageButton filterButton = (ImageButton) view
+				.findViewById(R.id.filter_button);
+
 		filterButton.setOnClickListener(new View.OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				DialogFragment dialog = new StoreCategoryFilterDialog();
@@ -110,33 +115,55 @@ public class NearbyStoreAdapter implements ListAdapter {
 			}
 		});
 	}
-	
+
 	private void configureStoreCard(View view, int position) {
-		PartnerBusiness store = (PartnerBusiness) getItem(position);
+		final PartnerBusiness store = (PartnerBusiness) getItem(position);
 		TextView storeNameText = (TextView) view.findViewById(R.id.store_name);
-		TextView discountText = (TextView) view.findViewById(R.id.discount_text);
+		TextView discountText = (TextView) view
+				.findViewById(R.id.discount_text);
+		Button button = (Button) view.findViewById(R.id.store_navigate_button);
+
 		storeNameText.setText(store.getName());
 		discountText.setText(store.getDiscountInfo());
+
+		button.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				double latitude = 14.566068;
+				double longitude = 120.992761;
+				String label = store.getName();
+				String uriBegin = "geo:" + latitude + "," + longitude;
+				String query = latitude + "," + longitude + "(" + label + ")";
+				String encodedQuery = Uri.encode(query);
+				String uriString = uriBegin + "?q=" + encodedQuery;
+				Uri uri = Uri.parse(uriString);
+				
+				Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				mActivity.startActivity(intent);
+			}
+		});
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View view;
-		
+
 		// Create or recycle a view
 		if (convertView != null) {
 			view = convertView;
 		} else {
 			view = inflateViewForPosition(position);
 		}
-		
+
 		// Set view contents appropriately
 		if (getItemViewType(position) == VIEW_TYPE_STORE) {
 			configureStoreCard(view, position);
 		} else {
 			configureFilterCard(view, position);
 		}
-		
+
 		return view;
 	}
 
