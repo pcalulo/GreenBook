@@ -96,6 +96,9 @@ public class MainActivity extends FragmentActivity {
 
 	private void selectItem(int position) {
 		Fragment fragment;
+		String title;
+		
+		// Select and set the fragment to display
 		switch (position) {
 		case 0:
 			fragment = new NearbyListFragment();
@@ -111,6 +114,10 @@ public class MainActivity extends FragmentActivity {
 		fm.beginTransaction().replace(R.id.content_frame, fragment).commit();
 
 		mDrawerLayout.closeDrawer(mDrawerList);
+		
+		// Set the title in the actionbar
+		title = getResources().getStringArray(R.array.nav_drawer_options)[position];
+		getActionBar().setTitle(title);
 	}
 
 	@Override
