@@ -26,6 +26,12 @@
         <item name="android:textSize">24sp</item>
     </style>
     
+    <style name="NavigationDrawerTextStyle">
+        <item name="android:textColor">@color/text_standard</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:padding">16dp</item>
+    </style>
+    
     <style name="TransparentButtonStyle">
         <item name="android:background">@drawable/list_item_selector</item>
     </style>
