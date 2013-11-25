@@ -34,9 +34,10 @@
             android:layout_width="96dp"
             android:layout_height="96dp"
             android:layout_marginLeft="8dp"
+            android:layout_marginBottom="16dp"
             android:layout_weight="0"
             android:scaleType="centerCrop"
-            android:src="@drawable/dummy_store_icon" />
+            android:src="@drawable/dummy_logo" />
     </LinearLayout>
 
     <View
