@@ -10,8 +10,7 @@
         android:id="@+id/store_name"
         style="@style/HeadingStyle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="HUEHUEHUE" />
+        android:layout_height="wrap_content" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,19 +20,33 @@
 
         <TextView
             android:id="@+id/discount_text"
+            style="@style/StandardTextStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="huehuehue huehuehue huehuehue" />
+            android:layout_weight="1" />
 
         <ImageView
             android:id="@+id/storeLogo"
             android:layout_width="96dp"
             android:layout_height="96dp"
+            android:layout_marginLeft="8dp"
             android:layout_weight="0"
             android:scaleType="centerCrop"
-            android:src="@drawable/dummy_store_icon"
-            android:layout_marginLeft="8dp" />
+            android:src="@drawable/dummy_store_icon" />
     </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="#eee" />
+
+    <Button
+        style="@style/TransparentButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_action_place"
+        android:gravity="left|center_vertical"
+        android:text="Navigate" >
+    </Button>
 
 </LinearLayout>

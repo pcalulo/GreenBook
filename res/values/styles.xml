@@ -21,9 +21,14 @@
     <style name="GreenBookActionBar" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
         <item name="android:background">@drawable/bg_branded</item>
     </style>
+    
+    <style name="StandardTextStyle">
+        <item name="android:textColor">@color/text_standard</item>
+    </style>
 
     <!-- Project details fragment styles -->
     <style name="HeadingStyleBase">
+        <item name="android:textColor">@color/text_standard</item>
         <item name="android:textSize">24sp</item>
     </style>
 
@@ -38,6 +43,7 @@
     </style>
 
     <style name="TransparentButtonStyle">
+        <item name="android:textColor">@color/text_standard</item>
         <item name="android:background">@drawable/list_item_selector</item>
     </style>
 
