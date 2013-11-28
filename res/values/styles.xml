@@ -14,6 +14,7 @@
 
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
+
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
         <item name="android:actionBarStyle">@style/GreenBookActionBar</item>
     </style>
@@ -21,7 +22,7 @@
     <style name="GreenBookActionBar" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
         <item name="android:background">@drawable/bg_branded</item>
     </style>
-    
+
     <style name="StandardTextStyle">
         <item name="android:textColor">@color/text_standard</item>
     </style>
@@ -45,6 +46,23 @@
     <style name="TransparentButtonStyle">
         <item name="android:textColor">@color/text_standard</item>
         <item name="android:background">@drawable/list_item_selector</item>
+    </style>
+
+    <style name="CardListViewStyleBase">
+        <item name="android:divider">@android:color/transparent</item>
+        <item name="android:dividerHeight">8dp</item>
+        <item name="android:choiceMode">none</item>
+        <item name="android:listSelector">@drawable/list_item_selector</item>
+
+        <!-- This allows list items to scroll into the padding area -->
+        <item name="android:clipToPadding">false</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+    </style>
+
+    <style name="CardListViewStyle" parent="CardListViewStyleBase">
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingBottom">16dp</item>
     </style>
 
 </resources>
