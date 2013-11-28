@@ -26,10 +26,13 @@ import com.grouphadel.dlsaa.app.NearbyListFragment;
 import com.grouphadel.dlsaa.app.ChapterLocatorFragment;
 
 public class MainActivity extends FragmentActivity {
+	private static String SELECTED_SCREEN_INDEX = "selectedScreenIndex";
+	
 	private String[] mSectionTitles;
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
 	private ActionBarDrawerToggle mDrawerToggle;
+	private int mSelectedScreenIndex = 0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -58,11 +61,12 @@ public class MainActivity extends FragmentActivity {
 		};
 
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
-		
+
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setHomeButtonEnabled(true);
-		
-		mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+
+		mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow,
+				GravityCompat.START);
 
 		mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
@@ -77,7 +81,17 @@ public class MainActivity extends FragmentActivity {
 					}
 				});
 
-		selectItem(0);
+		// If the app is just starting up, select the Nearby Stores screen
+		if (savedInstanceState == null) {
+			selectItem(mSelectedScreenIndex);
+		} else {
+			// If we have a savedInstanceState, use the selected screen index from it
+			mSelectedScreenIndex = savedInstanceState.getInt(SELECTED_SCREEN_INDEX);
+			// and set the action bar title appropriately
+			setTitleByScreenIndex(mSelectedScreenIndex);
+			
+			// The already-present fragment is preserved, so we don't have to reset it.
+		}
 	}
 
 	@Override
@@ -85,6 +99,14 @@ public class MainActivity extends FragmentActivity {
 		super.onPostCreate(savedInstanceState);
 
 		mDrawerToggle.syncState();
+	}
+	
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		
+		// Save the index of the selected screen
+		outState.putInt(SELECTED_SCREEN_INDEX, mSelectedScreenIndex);
 	}
 
 	@Override
@@ -97,7 +119,7 @@ public class MainActivity extends FragmentActivity {
 	private void selectItem(int position) {
 		Fragment fragment;
 		String title;
-		
+
 		// Select and set the fragment to display
 		switch (position) {
 		case 0:
@@ -114,9 +136,13 @@ public class MainActivity extends FragmentActivity {
 		fm.beginTransaction().replace(R.id.content_frame, fragment).commit();
 
 		mDrawerLayout.closeDrawer(mDrawerList);
-		
-		// Set the title in the actionbar
-		title = getResources().getStringArray(R.array.nav_drawer_options)[position];
+		mSelectedScreenIndex = position;
+		setTitleByScreenIndex(position);
+	}
+
+	private void setTitleByScreenIndex(int screenIndex) {
+		String title = getResources()
+				.getStringArray(R.array.nav_drawer_options)[screenIndex];
 		getActionBar().setTitle(title);
 	}
 
@@ -134,9 +160,9 @@ public class MainActivity extends FragmentActivity {
 		if (mDrawerToggle.onOptionsItemSelected(item)) {
 			return true;
 		}
-		
+
 		// insert other options handlers here
-		
+
 		return super.onOptionsItemSelected(item);
 	}
 
