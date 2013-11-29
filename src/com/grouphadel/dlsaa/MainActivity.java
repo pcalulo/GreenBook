@@ -61,15 +61,10 @@ public class MainActivity extends FragmentActivity {
 		};
 
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
-
-		getActionBar().setDisplayHomeAsUpEnabled(true);
-		getActionBar().setHomeButtonEnabled(true);
-
 		mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow,
 				GravityCompat.START);
 
 		mDrawerList = (ListView) findViewById(R.id.left_drawer);
-
 		mDrawerList.setAdapter(new ArrayAdapter<String>(this,
 				R.layout.list_item_nav_drawer, mSectionTitles));
 		mDrawerList
@@ -143,7 +138,7 @@ public class MainActivity extends FragmentActivity {
 	private void setTitleByScreenIndex(int screenIndex) {
 		String title = getResources()
 				.getStringArray(R.array.nav_drawer_options)[screenIndex];
-		getActionBar().setTitle(title);
+		// getActionBar().setTitle(title);
 	}
 
 	@Override

@@ -3,6 +3,9 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_card_backdrop"
     android:orientation="vertical" >
+    
+    <ImageView android:layout_width="match_parent" android:layout_height="160dp"
+        android:src="@drawable/bg_heading" android:scaleType="centerCrop"/>
 
     <ListView
         android:id="@android:id/list"

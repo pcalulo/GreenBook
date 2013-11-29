@@ -10,13 +10,12 @@
             res/values-vXX/styles.xml, while customizations related to
             backward-compatibility can go here.
         -->
+        <item name="android:actionBarStyle">@style/GreenBookActionBar</item>
     </style>
 
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
-
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
-        <item name="android:actionBarStyle">@style/GreenBookActionBar</item>
     </style>
 
     <style name="GreenBookActionBar" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
