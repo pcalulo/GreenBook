@@ -22,6 +22,11 @@
     <style name="GreenBookActionBar" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
         <item name="android:background">@drawable/bg_branded</item>
     </style>
+    
+    <style name="StandardPaddingStyle">
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:layout_marginBottom">4dp</item>
+    </style>
 
     <style name="StandardTextStyle">
         <item name="android:textColor">@color/text_standard</item>

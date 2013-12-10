@@ -15,4 +15,6 @@
     
     <string name="drawer_open">Open navigation</string>
     <string name="drawer_close">Close navigation</string>
+    <string name="petron_card_apply_heading">Apply for a Card</string>
+    <string name="petron_card_apply_info">The De La Salle Alumni Association and Petron have partnered up to provide a value card, offering various benefits to cardholders.</string>
 </resources>

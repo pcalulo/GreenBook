@@ -24,6 +24,7 @@ import android.widget.TextView;
 
 import com.grouphadel.dlsaa.app.NearbyListFragment;
 import com.grouphadel.dlsaa.app.ChapterLocatorFragment;
+import com.grouphadel.dlsaa.app.PetronCardRegistrationFragment;
 
 public class MainActivity extends FragmentActivity {
 	private static String SELECTED_SCREEN_INDEX = "selectedScreenIndex";
@@ -127,6 +128,9 @@ public class MainActivity extends FragmentActivity {
 			break;
 		case 1:
 			fragment = new ChapterLocatorFragment();
+			break;
+		case 2:
+			fragment = new PetronCardRegistrationFragment();
 			break;
 		default:
 			fragment = new Fragment();

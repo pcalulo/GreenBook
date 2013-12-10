@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_card_backdrop"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@drawable/bg_card"
+        android:orientation="vertical"
+        android:paddingBottom="16dp"
+        android:paddingTop="16dp" >
+
+        <TextView
+            android:id="@+id/petron_card_heading"
+            style="@style/HeadingStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:paddingBottom="8dp"
+            android:text="@string/petron_card_apply_heading" />
+
+        <TextView
+            android:id="@+id/petron_card_info"
+            style="@style/StandardTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:paddingBottom="8dp"
+            android:text="@string/petron_card_apply_info" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="#eee" />
+
+        <EditText
+            android:id="@+id/petron_card_reg_first_name"
+            style="@style/StandardPaddingStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="First Name" />
+
+        <EditText
+            android:id="@+id/petron_card_reg_last_name"
+            style="@style/StandardPaddingStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Last Name" />
+
+        <EditText
+            android:id="@+id/petron_card_reg_middle_name"
+            style="@style/StandardPaddingStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Middle Name" />
+
+        <EditText
+            android:id="@+id/petron_card_reg_house_street"
+            style="@style/StandardPaddingStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="House/Street" />
+
+        <EditText
+            android:id="@+id/petron_card_reg_subdiv_vill_munip"
+            style="@style/StandardPaddingStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Subdivision/Village/Municipality" />
+
+        <EditText
+            android:id="@+id/petron_card_reg_city"
+            style="@style/StandardPaddingStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Zip Code" />
+
+        <EditText
+            android:id="@+id/petron_card_reg_home_phone"
+            style="@style/StandardPaddingStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Home Phone" />
+
+        <EditText
+            android:id="@+id/petron_card_reg_mobile_number"
+            style="@style/StandardPaddingStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Mobile Number" />
+
+        <EditText
+            android:id="@+id/petron_card_reg_email"
+            style="@style/StandardPaddingStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Email Address" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:layout_marginTop="8dp"
+            android:background="#eee" />
+
+        <Button
+            android:id="@+id/petron_card_reg_submit_btn"
+            style="@style/TransparentButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:drawableLeft="@drawable/ic_action_accept"
+            android:gravity="left|center_vertical"
+            android:padding="8dp"
+            android:text="Submit" />
+    </LinearLayout>
+
+</ScrollView>
