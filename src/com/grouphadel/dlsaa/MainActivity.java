@@ -9,12 +9,14 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.android.gms.location.LocationClient;
 import com.grouphadel.dlsaa.app.ChapterLocatorFragment;
@@ -23,6 +25,7 @@ import com.grouphadel.dlsaa.app.PetronCardRegistrationFragment;
 
 public class MainActivity extends GooglePlayServicesEnabledActivity {
 	private static String SELECTED_SCREEN_INDEX = "selectedScreenIndex";
+	private static String TAG = MainActivity.class.getSimpleName();
 
 	// Navigation Drawer stuff
 	private String[] mSectionTitles;
@@ -30,10 +33,6 @@ public class MainActivity extends GooglePlayServicesEnabledActivity {
 	private ListView mDrawerList;
 	private ActionBarDrawerToggle mDrawerToggle;
 	private int mSelectedScreenIndex = 0;
-
-	// Play Services Location stuff
-	private LocationClient mLocationClient;
-	private Location mLocation;
 
 	private void initializeNavigationDrawer(Bundle savedInstanceState) {
 		mSectionTitles = getResources().getStringArray(
@@ -111,18 +110,6 @@ public class MainActivity extends GooglePlayServicesEnabledActivity {
 	}
 
 	@Override
-	protected void onStart() {
-		super.onStart();
-		mLocationClient.connect();
-	}
-
-	@Override
-	protected void onStop() {
-		mLocationClient.disconnect();
-		super.onStop();
-	}
-
-	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
 
@@ -190,4 +177,12 @@ public class MainActivity extends GooglePlayServicesEnabledActivity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	@Override
+	public void onLocationDetermined(Location location) {
+		String msgFormat = "Got location: %f, %f (accuracy %.1fm)";
+		String message = String.format(msgFormat, location.getLatitude(),
+				location.getLongitude(), location.getAccuracy());
+		Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+		Log.d(TAG, message);
+	}
 }

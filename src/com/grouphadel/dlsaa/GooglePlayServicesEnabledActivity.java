@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.location.LocationClient;
 
 /**
  * 
@@ -23,7 +25,7 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
  * @author Lawrence Patrick Calulo
  * 
  */
-public class GooglePlayServicesEnabledActivity extends FragmentActivity
+public abstract class GooglePlayServicesEnabledActivity extends FragmentActivity
 		implements GooglePlayServicesClient.ConnectionCallbacks,
 		GooglePlayServicesClient.OnConnectionFailedListener {
 	// Global constants
@@ -32,6 +34,9 @@ public class GooglePlayServicesEnabledActivity extends FragmentActivity
 	 * returned in Activity.onActivityResult
 	 */
 	private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
+	
+	protected LocationClient mLocationClient;
+	protected Location mLocation;
 
 	// Define a DialogFragment that displays the error dialog
 	public static class ErrorDialogFragment extends DialogFragment {
@@ -124,7 +129,8 @@ public class GooglePlayServicesEnabledActivity extends FragmentActivity
 	@Override
 	public void onConnected(Bundle dataBundle) {
 		// Display the connection status
-		Toast.makeText(this, "Connected", Toast.LENGTH_SHORT).show();
+		mLocation = mLocationClient.getLastLocation();
+		onLocationDetermined(mLocation);
 	}
 
 	/*
@@ -133,9 +139,6 @@ public class GooglePlayServicesEnabledActivity extends FragmentActivity
 	 */
 	@Override
 	public void onDisconnected() {
-		// Display the connection status
-		Toast.makeText(this, "Disconnected. Please re-connect.",
-				Toast.LENGTH_SHORT).show();
 	}
 
 	/*
@@ -169,4 +172,20 @@ public class GooglePlayServicesEnabledActivity extends FragmentActivity
 			showErrorDialog(connectionResult.getErrorCode());
 		}
 	}
+	
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+		mLocationClient.connect();
+	}
+
+	@Override
+	protected void onStop() {
+		mLocationClient.disconnect();
+		super.onStop();
+	}
+	
+	// CALLBACKS
+	public abstract void onLocationDetermined(Location location);
 }
