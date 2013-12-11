@@ -47,6 +47,14 @@ public class NearbyStoreAdapter implements ListAdapter,
 
 		mCurrentFilter = null;
 	}
+	
+	public String getSelectedCategory() {
+		return mCurrentFilter;
+	}
+	
+	public void setSelectedCategory(String category) {
+		mCurrentFilter = category;
+	}
 
 	public void setData(List<PartnerBusiness> businesses) {
 		mBusinesses = businesses;

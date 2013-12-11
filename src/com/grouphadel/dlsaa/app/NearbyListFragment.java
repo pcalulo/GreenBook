@@ -16,32 +16,49 @@ import android.view.View;
 import android.view.ViewGroup;
 
 public class NearbyListFragment extends ListFragment {
-	
+	public static final String KEY_SELECTED_CATEGORY = "selectedCategory";
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		NearbyStoreAdapter adapter;
+
+		adapter = new NearbyStoreAdapter(this.getActivity());
 		
-		setListAdapter(new NearbyStoreAdapter(this.getActivity()));
+		if (savedInstanceState != null) {
+			String selectedCategory = savedInstanceState.getString(KEY_SELECTED_CATEGORY);
+			adapter.setSelectedCategory(selectedCategory);
+		}
+		
+		setListAdapter(adapter);
 		refreshData();
 	}
-	
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		return inflater.inflate(R.layout.fragment_nearby_list, null);
 	}
 
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		NearbyStoreAdapter adapter = (NearbyStoreAdapter) this.getListAdapter();
+
+		outState.putString(KEY_SELECTED_CATEGORY, adapter.getSelectedCategory());
+	}
+
 	private void refreshData() {
 		DBHelper dbHelper = DBHelper.getInstance(this.getActivity());
 		PartnerBusinessDAO busDao = dbHelper.createBusinessDAO();
 		List<PartnerBusiness> businesses = busDao.getAll();
-		
+
 		NearbyStoreAdapter adapter = (NearbyStoreAdapter) getListAdapter();
 		if (adapter == null) {
 			adapter = new NearbyStoreAdapter(this.getActivity());
 			setListAdapter(adapter);
 		}
-		
+
 		adapter.setData(businesses);
 	}
 }
