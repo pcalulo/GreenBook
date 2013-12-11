@@ -14,8 +14,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.DataSetObserver;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +26,9 @@ import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
-public class NearbyStoreAdapter implements ListAdapter {
+public class NearbyStoreAdapter implements ListAdapter,
+		StoreCategoryFilterDialog.CategoryFilterListener {
+	private static final String TAG = NearbyStoreAdapter.class.getSimpleName();
 
 	private static final int NUM_VIEW_TYPES = 2;
 	private static final int VIEW_TYPE_FILTER = 0;
@@ -34,10 +38,14 @@ public class NearbyStoreAdapter implements ListAdapter {
 	private List<DataSetObserver> mObservers;
 	private List<PartnerBusiness> mBusinesses;
 
+	private String mCurrentFilter;
+
 	public NearbyStoreAdapter(FragmentActivity activity) {
 		mObservers = new ArrayList<DataSetObserver>();
 		mBusinesses = new ArrayList<PartnerBusiness>();
 		mActivity = activity;
+
+		mCurrentFilter = null;
 	}
 
 	public void setData(List<PartnerBusiness> businesses) {
@@ -104,14 +112,24 @@ public class NearbyStoreAdapter implements ListAdapter {
 	}
 
 	private void configureFilterCard(View view, int position) {
+		TextView filterCategoryLabel = (TextView) view
+				.findViewById(R.id.filter_category_label);
 		ImageButton filterButton = (ImageButton) view
 				.findViewById(R.id.filter_button);
+		
+		if (mCurrentFilter == null) {
+			filterCategoryLabel.setText("All Stores");
+		} else {
+			filterCategoryLabel.setText(mCurrentFilter);
+		}
 
 		filterButton.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				DialogFragment dialog = new StoreCategoryFilterDialog();
+				StoreCategoryFilterDialog dialog = new StoreCategoryFilterDialog();
+				dialog.setCategoryFilterListener(NearbyStoreAdapter.this);
+
 				dialog.show(mActivity.getSupportFragmentManager(), "categories");
 			}
 		});
@@ -211,6 +229,13 @@ public class NearbyStoreAdapter implements ListAdapter {
 	public boolean isEnabled(int position) {
 		// TODO Auto-generated method stub
 		return true;
+	}
+
+	@Override
+	public void onCategoryFilterSet(String category) {
+		Log.d(TAG, "onCategoryFilterSet: " + category);
+		mCurrentFilter = category;
+		notifyDataSetChanged();
 	}
 
 }

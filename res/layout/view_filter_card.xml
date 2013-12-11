@@ -7,7 +7,7 @@
     android:padding="8dp" >
 
     <TextView
-        android:id="@+id/filter_category"
+        android:id="@+id/filter_category_label"
         style="@style/HeadingStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
