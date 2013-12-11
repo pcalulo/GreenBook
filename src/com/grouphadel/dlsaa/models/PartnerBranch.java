@@ -7,6 +7,7 @@ public class PartnerBranch extends DatabaseObject{
 	private double latitude;
 	
 	public PartnerBranch() {
+		//just came up with this
 		this.businessID = 0;
 		this.address = "";
 		this.longitude = 0;

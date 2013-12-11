@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.grouphadel.dlsaa.models.DatabaseObject;
+import com.grouphadel.dlsaa.models.PartnerBranch;
 import com.grouphadel.dlsaa.models.PartnerBusiness;
 
 import android.database.Cursor;
@@ -57,14 +58,18 @@ public class PartnerBusinessDAO extends BaseDAO {
 
 		// TODO: Join with PartnerBranches
 		Cursor cursor = database.rawQuery(
-				"SELECT rowid, name, discount_description "
-						+ "FROM PartnerBusinesses", null);
+				"SELECT rowid, name, discount_description, businessID, address, longitude, latitude "
+						+ "FROM PartnerBusinesses " +
+						"LEFT JOIN PartnerBranches ON PartnerBusiness.rowid = PartnerBranches.businessID", null);
 		
 		while (cursor.moveToNext()) {
 			business = new PartnerBusiness();
 			business.setId(cursor.getLong(0));
 			business.setName(cursor.getString(1));
 			business.setDiscountInfo(cursor.getString(2));
+			
+//			Gets a branch of the business (NOT THE NEAREST ONE)
+			business.setNearestBranch(new PartnerBranch(cursor.getInt(3), cursor.getString(4), cursor.getDouble(5), cursor.getDouble(6)));
 			
 			businesses.add(business);
 		}
