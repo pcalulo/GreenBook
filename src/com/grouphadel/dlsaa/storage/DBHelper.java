@@ -32,7 +32,7 @@ public class DBHelper extends SQLiteOpenHelper {
 	public void onCreate(SQLiteDatabase db) {
 		// Store deadline as milliseconds since Unix epoch
 		Log.d(TAG, "Creating database tables");
-		db.execSQL("CREATE TABLE PartnerBusinesses (name TEXT, discount_description TEXT)");
+		db.execSQL("CREATE TABLE PartnerBusinesses (name TEXT, discount_description TEXT, category TEXT)");
 		db.execSQL("CREATE TABLE PartnerBranches (businessID INTEGER, address TEXT, latitude REAL, "
 				+ "longitude REAL)");
 		

@@ -99,16 +99,19 @@ public class PartnerBusinessDAO extends BaseDAO {
 		business = new PartnerBusiness();
 		business.setName("World Chicken");
 		business.setDiscountInfo("5% off with cash");
+		business.setCategory(PartnerBusiness.CATEGORY_RESTAURANT);
 		this.add(business);
 		
 		business = new PartnerBusiness();
 		business.setName("Zen Tea");
 		business.setDiscountInfo("20% off on all cash payments, on all products");
+		business.setCategory(PartnerBusiness.CATEGORY_RESTAURANT);
 		this.add(business);
 		
 		business = new PartnerBusiness();
 		business.setName("Giligan's Island Restaurant and Bar");
 		business.setDiscountInfo("10% cash, 5% credit card. Not valid on promo");
+		business.setCategory(PartnerBusiness.CATEGORY_RESTAURANT);
 		this.add(business);
 	}
 	
