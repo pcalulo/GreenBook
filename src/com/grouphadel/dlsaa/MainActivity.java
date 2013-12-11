@@ -97,8 +97,7 @@ public class MainActivity extends GooglePlayServicesEnabledActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_nav_drawer);
-
-		mLocationClient = new LocationClient(this, this, this);
+		
 		initializeNavigationDrawer(savedInstanceState);
 	}
 
@@ -176,10 +175,10 @@ public class MainActivity extends GooglePlayServicesEnabledActivity {
 
 		return super.onOptionsItemSelected(item);
 	}
-
+	
 	@Override
-	public void onLocationDetermined(Location location) {
-		String msgFormat = "Got location: %f, %f (accuracy %.1fm)";
+	public void onLocationChanged(Location location) {
+		String msgFormat = "Updated location: %f, %f (accuracy %.1fm)";
 		String message = String.format(msgFormat, location.getLatitude(),
 				location.getLongitude(), location.getAccuracy());
 		Toast.makeText(this, message, Toast.LENGTH_SHORT).show();

@@ -9,12 +9,13 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.location.LocationClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
 
 /**
  * 
@@ -25,17 +26,33 @@ import com.google.android.gms.location.LocationClient;
  * @author Lawrence Patrick Calulo
  * 
  */
-public abstract class GooglePlayServicesEnabledActivity extends FragmentActivity
-		implements GooglePlayServicesClient.ConnectionCallbacks,
-		GooglePlayServicesClient.OnConnectionFailedListener {
+public abstract class GooglePlayServicesEnabledActivity extends
+		FragmentActivity implements
+		GooglePlayServicesClient.ConnectionCallbacks,
+		GooglePlayServicesClient.OnConnectionFailedListener, LocationListener {
 	// Global constants
 	/*
 	 * Define a request code to send to Google Play services This code is
 	 * returned in Activity.onActivityResult
 	 */
 	private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
-	
+
+	// Update interval constants
+	// Milliseconds per second
+	private static final int MILLISECONDS_PER_SECOND = 1000;
+	// Update frequency in seconds
+	public static final int UPDATE_INTERVAL_IN_SECONDS = 60;
+	// Update frequency in milliseconds
+	private static final long UPDATE_INTERVAL = MILLISECONDS_PER_SECOND
+			* UPDATE_INTERVAL_IN_SECONDS;
+	// The fastest update frequency, in seconds
+	private static final int FASTEST_INTERVAL_IN_SECONDS = 10;
+	// A fast frequency ceiling in milliseconds
+	private static final long FASTEST_INTERVAL = MILLISECONDS_PER_SECOND
+			* FASTEST_INTERVAL_IN_SECONDS;
+
 	protected LocationClient mLocationClient;
+	protected LocationRequest mLocationRequest;
 	protected Location mLocation;
 
 	// Define a DialogFragment that displays the error dialog
@@ -59,6 +76,21 @@ public abstract class GooglePlayServicesEnabledActivity extends FragmentActivity
 		public Dialog onCreateDialog(Bundle savedInstanceState) {
 			return mDialog;
 		}
+	}
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+
+		mLocationClient = new LocationClient(this, this, this);
+
+		mLocationRequest = LocationRequest.create();
+		// We're not a maps app
+		mLocationRequest
+				.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+		mLocationRequest.setInterval(UPDATE_INTERVAL);
+		mLocationRequest.setFastestInterval(FASTEST_INTERVAL);
 	}
 
 	/*
@@ -130,7 +162,7 @@ public abstract class GooglePlayServicesEnabledActivity extends FragmentActivity
 	public void onConnected(Bundle dataBundle) {
 		// Display the connection status
 		mLocation = mLocationClient.getLastLocation();
-		onLocationDetermined(mLocation);
+		mLocationClient.requestLocationUpdates(mLocationRequest, this);
 	}
 
 	/*
@@ -172,7 +204,6 @@ public abstract class GooglePlayServicesEnabledActivity extends FragmentActivity
 			showErrorDialog(connectionResult.getErrorCode());
 		}
 	}
-	
 
 	@Override
 	protected void onStart() {
@@ -185,7 +216,9 @@ public abstract class GooglePlayServicesEnabledActivity extends FragmentActivity
 		mLocationClient.disconnect();
 		super.onStop();
 	}
-	
-	// CALLBACKS
-	public abstract void onLocationDetermined(Location location);
+
+	// Conveniently, it's named similarly to our old callback, so we can just
+	// let MainActivity do its thing
+	@Override
+	public abstract void onLocationChanged(Location location);
 }
