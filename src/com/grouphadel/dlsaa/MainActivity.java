@@ -1,6 +1,7 @@
 package com.grouphadel.dlsaa;
 
 import android.content.res.Configuration;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
@@ -15,24 +16,26 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.google.android.gms.location.LocationClient;
 import com.grouphadel.dlsaa.app.ChapterLocatorFragment;
 import com.grouphadel.dlsaa.app.NearbyListFragment;
 import com.grouphadel.dlsaa.app.PetronCardRegistrationFragment;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends GooglePlayServicesEnabledActivity {
 	private static String SELECTED_SCREEN_INDEX = "selectedScreenIndex";
-	
+
+	// Navigation Drawer stuff
 	private String[] mSectionTitles;
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
 	private ActionBarDrawerToggle mDrawerToggle;
 	private int mSelectedScreenIndex = 0;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main_nav_drawer);
+	// Play Services Location stuff
+	private LocationClient mLocationClient;
+	private Location mLocation;
 
+	private void initializeNavigationDrawer(Bundle savedInstanceState) {
 		mSectionTitles = getResources().getStringArray(
 				R.array.nav_drawer_options);
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -79,13 +82,25 @@ public class MainActivity extends FragmentActivity {
 		if (savedInstanceState == null) {
 			selectItem(mSelectedScreenIndex);
 		} else {
-			// If we have a savedInstanceState, use the selected screen index from it
-			mSelectedScreenIndex = savedInstanceState.getInt(SELECTED_SCREEN_INDEX);
+			// If we have a savedInstanceState, use the selected screen index
+			// from it
+			mSelectedScreenIndex = savedInstanceState
+					.getInt(SELECTED_SCREEN_INDEX);
 			// and set the action bar title appropriately
 			setTitleByScreenIndex(mSelectedScreenIndex);
-			
-			// The already-present fragment is preserved, so we don't have to reset it.
+
+			// The already-present fragment is preserved, so we don't have to
+			// reset it.
 		}
+	}
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main_nav_drawer);
+
+		mLocationClient = new LocationClient(this, this, this);
+		initializeNavigationDrawer(savedInstanceState);
 	}
 
 	@Override
@@ -94,11 +109,23 @@ public class MainActivity extends FragmentActivity {
 
 		mDrawerToggle.syncState();
 	}
-	
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+		mLocationClient.connect();
+	}
+
+	@Override
+	protected void onStop() {
+		mLocationClient.disconnect();
+		super.onStop();
+	}
+
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
-		
+
 		// Save the index of the selected screen
 		outState.putInt(SELECTED_SCREEN_INDEX, mSelectedScreenIndex);
 	}
