@@ -6,6 +6,8 @@ import java.util.List;
 import com.grouphadel.dlsaa.R;
 import com.grouphadel.dlsaa.dialogs.StoreCategoryFilterDialog;
 import com.grouphadel.dlsaa.models.PartnerBusiness;
+import com.grouphadel.dlsaa.storage.DBHelper;
+import com.grouphadel.dlsaa.storage.PartnerBusinessDAO;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -54,6 +56,15 @@ public class NearbyStoreAdapter implements ListAdapter,
 	
 	public void setSelectedCategory(String category) {
 		mCurrentFilter = category;
+		
+		DBHelper dbHelper = DBHelper.getInstance(mActivity);
+		PartnerBusinessDAO businessDao = dbHelper.createBusinessDAO();
+		
+		if (category == null) {
+			this.setData(businessDao.getAll());
+		} else {
+			this.setData(businessDao.getAllNearby(mCurrentFilter));
+		}
 	}
 
 	public void setData(List<PartnerBusiness> businesses) {
@@ -242,8 +253,7 @@ public class NearbyStoreAdapter implements ListAdapter,
 	@Override
 	public void onCategoryFilterSet(String category) {
 		Log.d(TAG, "onCategoryFilterSet: " + category);
-		mCurrentFilter = category;
-		notifyDataSetChanged();
+		setSelectedCategory(category);
 	}
 
 }

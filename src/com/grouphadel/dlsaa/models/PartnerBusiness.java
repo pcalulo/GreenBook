@@ -1,5 +1,8 @@
 package com.grouphadel.dlsaa.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class PartnerBusiness extends DatabaseObject {
 	// Categories!
 	public static final String CATEGORY_CLOTHING = "Clothing and Footwear";
@@ -18,6 +21,8 @@ public class PartnerBusiness extends DatabaseObject {
 	private String name;
 	private String discountInfo;
 	private String category;
+	
+	private List<PartnerBranch> branches;
 
 	// This is a bit hackish
 	private PartnerBranch nearestBranch;
@@ -26,6 +31,8 @@ public class PartnerBusiness extends DatabaseObject {
 		setName("Example PartnerBusiness");
 		setDiscountInfo("0% off on all cash purchases, -0% off on card purchases");
 		setCategory(CATEGORY_RESTAURANT);
+		
+		branches = new ArrayList<PartnerBranch>();
 	}
 
 	public String getName() {
@@ -58,5 +65,17 @@ public class PartnerBusiness extends DatabaseObject {
 
 	public void setNearestBranch(PartnerBranch nearestBranch) {
 		this.nearestBranch = nearestBranch;
+	}
+	
+	public void addBranch(PartnerBranch branch) {
+		branches.add(branch);
+	}
+	
+	public void removeBranch(PartnerBranch branch) {
+		branches.remove(branch);
+	}
+	
+	public List<PartnerBranch> getBranches() {
+		return branches;
 	}
 }

@@ -25,13 +25,14 @@ public class NearbyListFragment extends ListFragment {
 
 		adapter = new NearbyStoreAdapter(this.getActivity());
 		
+		// TODO: Optimize!
+		setListAdapter(adapter);
+		refreshData();
+		
 		if (savedInstanceState != null) {
 			String selectedCategory = savedInstanceState.getString(KEY_SELECTED_CATEGORY);
 			adapter.setSelectedCategory(selectedCategory);
 		}
-		
-		setListAdapter(adapter);
-		refreshData();
 	}
 
 	@Override
