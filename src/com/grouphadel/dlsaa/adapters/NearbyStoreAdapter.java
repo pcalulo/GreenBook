@@ -162,7 +162,7 @@ public class NearbyStoreAdapter implements ListAdapter,
 		Button button = (Button) view.findViewById(R.id.store_navigate_button);
 
 		storeNameText.setText(store.getName());
-		discountText.setText(store.getDiscountInfo());
+		discountText.setText("Discount: " + store.getDiscountInfo());
 
 		button.setOnClickListener(new View.OnClickListener() {
 
