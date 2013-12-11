@@ -166,8 +166,7 @@ public class GooglePlayServicesEnabledActivity extends FragmentActivity
 			 * If no resolution is available, display a dialog to the user with
 			 * the error.
 			 */
-			// Contrary to the docs, his is NOT DEFINED in the code samples!
-			// showErrorDialog(connectionResult.getErrorCode());
+			showErrorDialog(connectionResult.getErrorCode());
 		}
 	}
 }
