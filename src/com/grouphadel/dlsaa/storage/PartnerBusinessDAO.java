@@ -170,41 +170,6 @@ public class PartnerBusinessDAO extends BaseDAO {
 		}
 	}
 
-	public void addSampleBusinessData() {
-		PartnerBusiness business;
-		PartnerBranch branch;
-		PartnerBranchDAO branchDao = new PartnerBranchDAO(this.database);
-
-		business = new PartnerBusiness();
-		business.setName("World Chicken");
-		business.setDiscountInfo("5% off with cash");
-		business.setCategory(PartnerBusiness.CATEGORY_RESTAURANT);
-		this.add(business);
-
-		business = new PartnerBusiness();
-		business.setName("Zen Tea");
-		business.setDiscountInfo("20% off on all cash payments, on all products");
-		business.setCategory(PartnerBusiness.CATEGORY_RESTAURANT);
-		this.add(business);
-
-		business = new PartnerBusiness();
-		business.setName("Giligan's Island Restaurant and Bar");
-		business.setDiscountInfo("5% cash");
-		business.setCategory(PartnerBusiness.CATEGORY_RESTAURANT);
-		this.add(business);
-		branch = new PartnerBranch();
-		branch.setAddress("2263-B Taft Avenue, Malate, Manila");
-		branch.setLatLong(14.574197, 120.989553);
-		branch.setBusiness(business);
-		branchDao.add(branch);
-		
-		business = new PartnerBusiness();
-		business.setName("The Green Place Eatery and Catering Services");
-		business.setDiscountInfo("10% cash, 5% credit card. Not valid on promo");
-		business.setCategory(PartnerBusiness.CATEGORY_RESTAURANT);
-		this.add(business);
-	}
-
 	public double getNearBusinesses(double lat1, double lon1, double lat2,
 			double lon2) {
 		double R = 6378.137;

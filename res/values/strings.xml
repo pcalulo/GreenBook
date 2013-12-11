@@ -6,15 +6,20 @@
     <string name="title_nearby">Nearby</string>
     <string name="title_promos">Promos</string>
     <string name="title_events">Events</string>
+
     <string-array name="nav_drawer_options">
         <item>Nearby Stores</item>
         <item>Chapter Locator</item>
         <item>DLSAA Petron Card</item>
         <item>News Board</item>
     </string-array>
-    
+
     <string name="drawer_open">Open navigation</string>
     <string name="drawer_close">Close navigation</string>
     <string name="petron_card_apply_heading">Apply for a Card</string>
     <string name="petron_card_apply_info">The De La Salle Alumni Association and Petron have partnered up to provide a value card, offering various benefits to cardholders.</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="settings_reload_packaged_data">Reload packaged business data</string>
+
 </resources>

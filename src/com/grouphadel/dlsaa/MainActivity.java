@@ -1,5 +1,6 @@
 package com.grouphadel.dlsaa;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.location.Location;
 import android.os.Bundle;
@@ -97,7 +98,7 @@ public class MainActivity extends GooglePlayServicesEnabledActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_nav_drawer);
-		
+
 		initializeNavigationDrawer(savedInstanceState);
 	}
 
@@ -165,6 +166,8 @@ public class MainActivity extends GooglePlayServicesEnabledActivity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+		Intent intent;
+		
 		// Pass the event to ActionBarDrawerToggle, if it returns
 		// true, then it has handled the app icon touch event
 		if (mDrawerToggle.onOptionsItemSelected(item)) {
@@ -172,10 +175,16 @@ public class MainActivity extends GooglePlayServicesEnabledActivity {
 		}
 
 		// insert other options handlers here
-
-		return super.onOptionsItemSelected(item);
+		switch (item.getItemId()) {
+		case R.id.action_settings:
+			intent = new Intent(this, SettingsActivity.class);
+			startActivity(intent);
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
 	}
-	
+
 	@Override
 	public void onLocationChanged(Location location) {
 		String msgFormat = "Updated location: %f, %f (accuracy %.1fm)";
