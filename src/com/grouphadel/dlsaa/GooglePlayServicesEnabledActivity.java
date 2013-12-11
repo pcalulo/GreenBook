@@ -1,5 +1,8 @@
 package com.grouphadel.dlsaa;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
@@ -54,6 +57,9 @@ public abstract class GooglePlayServicesEnabledActivity extends
 	protected LocationClient mLocationClient;
 	protected LocationRequest mLocationRequest;
 	protected Location mLocation;
+	
+	// For location listeners other than MainActivity (such as NearbyListFragment)
+	private List<LocationListener> mLocationListeners;
 
 	// Define a DialogFragment that displays the error dialog
 	public static class ErrorDialogFragment extends DialogFragment {
@@ -82,6 +88,8 @@ public abstract class GooglePlayServicesEnabledActivity extends
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		
+		mLocationListeners = new ArrayList<LocationListener>();
 
 		mLocationClient = new LocationClient(this, this, this);
 
@@ -216,9 +224,25 @@ public abstract class GooglePlayServicesEnabledActivity extends
 		mLocationClient.disconnect();
 		super.onStop();
 	}
+	
+	public void registerLocationListener(LocationListener listener) {
+		mLocationListeners.add(listener);
+		
+		if (mLocationClient.isConnected()) {
+			listener.onLocationChanged(mLocationClient.getLastLocation());
+		}
+	}
+	
+	public void unregisterLocationListener(LocationListener listener) {
+		mLocationListeners.remove(listener);
+	}
 
 	// Conveniently, it's named similarly to our old callback, so we can just
 	// let MainActivity do its thing
 	@Override
-	public abstract void onLocationChanged(Location location);
+	public void onLocationChanged(Location location) {
+		for (LocationListener listener : mLocationListeners) {
+			listener.onLocationChanged(location);
+		}
+	}
 }
