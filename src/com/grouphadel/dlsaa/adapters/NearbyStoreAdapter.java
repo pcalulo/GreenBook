@@ -135,7 +135,7 @@ public class NearbyStoreAdapter implements ListAdapter {
 				double longitude = 120.992761;
 				String label = store.getName();
 				String uriBegin = "geo:" + latitude + "," + longitude;
-				String query = latitude + "," + longitude + "(" + label + ")";
+				String query = latitude + "," + longitude;
 				String encodedQuery = Uri.encode(query);
 				String uriString = uriBegin + "?q=" + encodedQuery;
 				Uri uri = Uri.parse(uriString);
