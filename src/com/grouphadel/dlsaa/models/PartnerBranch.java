@@ -37,4 +37,9 @@ public class PartnerBranch extends DatabaseObject {
 	public void setLongitude(double longitude) {
 		this.longitude = longitude;
 	}
+	
+	public void setLatLong(double latitude, double longitude) {
+		setLatitude(latitude);
+		setLongitude(longitude);
+	}
 }
