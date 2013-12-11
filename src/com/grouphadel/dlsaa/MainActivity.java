@@ -190,7 +190,7 @@ public class MainActivity extends GooglePlayServicesEnabledActivity {
 		String msgFormat = "Updated location: %f, %f (accuracy %.1fm)";
 		String message = String.format(msgFormat, location.getLatitude(),
 				location.getLongitude(), location.getAccuracy());
-		Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+		// Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
 		Log.d(TAG, message);
 	}
 }
